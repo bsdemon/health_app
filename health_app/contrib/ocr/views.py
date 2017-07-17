@@ -2,9 +2,9 @@ from PIL import Image
 import pytesseract
 
 from django.shortcuts import render
-from django.http import HttpResponse
-
-
+from django.http import HttpResponse, HttpResponseRedirect
+from .forms import UploadFileForm
+# from .utils import handle_uploaded_file
 # Create your views here.
 
 
@@ -15,7 +15,18 @@ def index(request):
 def image(request):
     pass
 
-
+def upload_file(request):
+    import ipdb ; ipdb.set_trace()
+    if request.method == 'POST':
+        form = UploadFileForm(request.POST, request.FILES)
+        if form.is_valid():
+            print(pytesseract.image_to_string(Image.open(request.FILES)))
+            # handle_uploaded_file(request.FILES['file'])
+            # return HttpResponseRedirect('/success/url/')
+    else:
+        form = UploadFileForm()
+    return render(request, 'upload.html', {'form': form})
+    
 
 
 # pytesseract.pytesseract.tesseract_cmd = '<full_path_to_your_tesseract_executable>'
