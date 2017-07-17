@@ -1,3 +1,4 @@
 Django==1.11.3
 Pillow==4.2.1
 pytesseract==0.1.7
+ipdb==0.10.3
